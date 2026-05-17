@@ -9,6 +9,45 @@ An intelligent Streamlit-based web application that leverages Natural Language P
 - **Actionable Insights:** Explicitly highlights matched skills and missing skills, providing a definitive hiring decision (Accepted, Needs Improvement, Rejected).
 - **Premium UI:** A modern, dark-themed UI with clean metric cards, gradient buttons, and responsive grid layouts.
 
+## 🔄 System Flowchart
+```mermaid
+graph TD
+    A[User Inputs] --> B(Resume Text)
+    A --> C(Job Description JD)
+    
+    B --> D[Text Cleaning]
+    C --> E[Text Cleaning]
+    
+    D --> F{{TF-IDF Vectorizer}}
+    E --> F
+    
+    F --> G(Resume Vector)
+    F --> H(JD Vector)
+    
+    G --> I[Logistic Regression Model]
+    I --> J[Predicted Job Category]
+    
+    G --> K[Cosine Similarity]
+    H --> K
+    K --> L[Text Similarity Score]
+    
+    D --> M[Skill Extraction]
+    E --> M
+    M --> N[Compare Skills]
+    
+    N --> O[Missing Skills]
+    N --> P[Matched Skills]
+    N --> Q[Skill Match Score]
+    
+    L --> R(Weighted Final Score)
+    Q --> R
+    
+    R --> S{{Final Decision}}
+    S -- Score > 60% --> T[Resume Accepted]
+    S -- Score 40-60% --> U[Needs Improvement]
+    S -- Score < 40% --> V[Resume Rejected]
+```
+
 ## 🛠️ Tech Stack
 - **Frontend:** Streamlit
 - **Machine Learning:** Scikit-learn (Logistic Regression, TF-IDF Vectorizer)
